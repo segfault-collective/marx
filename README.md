@@ -22,3 +22,27 @@ Astro is opinionated in how you add routes, so it's good to familiarize with [fi
 ### Content & Digital Garden
 
 Astro [Content Collections](https://docs.astro.build/en/guides/content-collections/) are used for the posts.
+
+## Releases
+
+Releases are created manually with the [Release workflow](.github/workflows/release.yml), either from the Actions tab (Release → Run workflow) or with:
+
+```sh
+gh workflow run release.yml -f bump=patch # or minor, major
+```
+
+The workflow builds `main`, bumps the version of the latest release, and publishes a [GitHub Release](https://github.com/segfault-collective/marx/releases) with the built site attached as `marx-dist.tar.gz`.
+
+### Downloading a Release
+
+The latest release is always available at a stable URL, no authentication needed:
+
+```
+https://github.com/segfault-collective/marx/releases/latest/download/marx-dist.tar.gz
+```
+
+A specific version is available by its tag:
+
+```
+https://github.com/segfault-collective/marx/releases/download/v1.0.1/marx-dist.tar.gz
+```
