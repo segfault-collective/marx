@@ -1,0 +1,191 @@
+---
+import MainContainer from '../components/MainContainer.astro';
+import NavigationBar from '../components/navigation/NavigationBar.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = 'Ομάδα Ανάγνωσης Κεφαλαίου - Φάμπρικα Υφανέτ',
+  description = 'Υλικό και συζητήσεις της ομάδας ανάγνωσης του Κεφαλαίου του Marx που στεγάστηκε στη Φάμπρικα Υφανέτ από το 2023 έως το 2025.',
+  image = 'https://marx-capital-reading-group.netlify.app/marx-capital-reading-group-1200x630.png',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- SEO -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+
+    <!-- Twitter -->
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/katex.min.css"
+      integrity="sha384-Pu5+C18nP5dwykLJOhd2U4Xen7rjScHN/qusop27hdd2drI+lL5KvX7YntvT8yew"
+      crossorigin="anonymous"
+    />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body class="bg-[#f9f9f7] dark:bg-neutral-800">
+    <MainContainer>
+      <NavigationBar />
+      <slot />
+      <Footer />
+    </MainContainer>
+  </body>
+</html>
+
+<script>
+  import { loadThemeAndRegisterSwitchHandlers } from '../theme';
+  loadThemeAndRegisterSwitchHandlers();
+</script>
+
+<style is:global>
+  @import 'tailwindcss';
+
+  @theme {
+    --font-sans: 'Noto Sans', sans-serif;
+    --font-serif: 'Alegreya', serif;
+    --font-mono: 'Fira Code', monospace;
+
+    --color-rose-50: #fff1f2;
+    --color-rose-100: #ffe4e5;
+    --color-rose-200: #fecdd1;
+    --color-rose-300: #fda4ac;
+    --color-rose-400: #fb7180;
+    --color-rose-500: #f43f58;
+    --color-rose-600: #e01d41;
+    --color-rose-700: #be1236;
+    --color-rose-800: #9f1234;
+    --color-rose-900: #881333;
+    --color-rose-950: #4c0517;
+  }
+
+  @custom-variant dark (&:where(.dark, .dark *));
+
+  html {
+    font-family: 'Noto Sans', sans-serif;
+    font-optical-sizing: auto;
+  }
+  body {
+    margin: 0;
+  }
+
+  .no-justify li,
+  .no-justify p {
+    text-align: left;
+  }
+
+  [data-footnotes] p,
+  [data-footnotes] li {
+    text-align: left;
+  }
+
+  p .katex {
+    font-size: 1em;
+  }
+
+  h1 .katex,
+  h2 .katex,
+  h3 .katex,
+  h4 .katex,
+  h5 .katex,
+  h6 .katex {
+    font-size: inherit;
+  }
+
+  .dark .katex {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .poem blockquote {
+    border-inline-start: none;
+    padding-inline-start: 0;
+  }
+
+  .poem blockquote p {
+    text-align: center;
+  }
+
+  blockquote h1,
+  blockquote h2,
+  blockquote h3,
+  blockquote h4,
+  blockquote h5,
+  blockquote h6 {
+    font-family: inherit;
+  }
+
+  .figure-with-caption {
+    margin-bottom: 32px;
+  }
+
+  .figure-with-caption figcaption {
+    text-align: center;
+  }
+
+  .dark .figure-with-caption {
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  /* Content-specific styles */
+  .content-28-highlights-economic {
+    color: var(--color-blue-500);
+    font-weight: 700;
+  }
+
+  .dark .content-28-highlights-economic {
+    color: var(--color-blue-300);
+    font-weight: 700;
+  }
+
+  .content-28-highlights-philosophic {
+    color: var(--color-yellow-500);
+    font-weight: 700;
+  }
+
+  .dark .content-28-highlights-philosophic {
+    color: var(--color-yellow-300);
+    font-weight: 700;
+  }
+
+  .content-28-highlights-mathematic {
+    color: var(--color-red-500);
+    font-weight: 700;
+  }
+
+  .dark .content-28-highlights-mathematic {
+    color: var(--color-red-300);
+    font-weight: 700;
+  }
+</style>

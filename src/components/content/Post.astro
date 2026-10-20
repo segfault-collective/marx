@@ -1,0 +1,92 @@
+---
+import { type PostWithMarginalia, getDisplayDate } from '../../models/post';
+import OutlineButton from '../actions/buttons/OutlineButton.astro';
+
+interface Props {
+  post: PostWithMarginalia;
+  size: 'small' | 'normal';
+}
+
+const { post, size } = Astro.props;
+
+const postHeadingClasses = {
+  small: 'text-lg md:text-[1.375rem]',
+  normal: 'text-xl sm:text-2xl md:text-3xl',
+}[size];
+
+const marginaliaHeading = {
+  small: 'text-sm md:text-md',
+  normal: 'text-md sm:text-lg md:text-xl',
+}[size];
+
+const paragraphClasses = {
+  small: 'text-sm/6',
+  normal: 'text-base/7 md:text-lg/8',
+}[size];
+---
+
+<div class="flex flex-col items-center sm:items-start gap-2">
+  <div class="flex items-center gap-3">
+    <p class="text-left text-black/70 dark:text-white/70 text-xs md:text-sm">
+      {getDisplayDate(post)}
+    </p>
+  </div>
+
+  <a href=`/blog/${post.slug}`
+    ><h3
+      class={`text-black/90 dark:text-white/90 text-center sm:text-left font-serif font-bold ${postHeadingClasses}`}
+    >
+      {post.title}
+    </h3></a
+  >
+  <p
+    class={`whitespace-pre-line text-black/85 dark:text-white/85 text-black sm:text-justify font-light ${paragraphClasses}`}
+  >
+    {post.description}
+  </p>
+  {
+    post.downloadPath && (
+      <a href={post.downloadPath} download class="mt-2 w-full sm:w-auto">
+        <OutlineButton
+          size="sm"
+          classes="w-full"
+          text="Κατέβασε την Εισήγηση"
+          icon="pdf"
+        />
+      </a>
+    )
+  }
+  {
+    post.marginalia.length > 0 && (
+      <div class="mt-4 self-stretch flex flex-col items-center sm:items-start gap-4">
+        {post.marginalia.map((marginalia) => (
+          <div class="self-stretch flex flex-col items-center sm:items-start">
+            <a href=`/marginalia/${marginalia.slug}`
+            >
+              <h4
+                class={`text-black/90 dark:text-white/90 text-center sm:text-left font-serif font-bold ${marginaliaHeading}`}
+              >
+                {marginalia.title}
+              </h4>
+            </a>
+            
+            {marginalia.downloadPath && (
+              <a
+                href={marginalia.downloadPath}
+                download
+                class="mt-2 block w-full sm:w-auto"
+              >
+                <OutlineButton
+                  size="xs"
+                  classes="w-full"
+                  text="Κατέβασε το Κείμενο"
+                  icon="pdf"
+                />
+              </a>
+            )}
+          </div>
+        ))}
+      </div>
+    )
+  }
+</div>

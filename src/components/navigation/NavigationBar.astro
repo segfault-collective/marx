@@ -1,0 +1,20 @@
+---
+import Logo from '../../assets/images/logo.svg';
+import ThemeSwitcher from '../ThemeSwitcher.astro';
+---
+
+<nav
+  class="flex flex-initial justify-center items-center px-4 py-4 sm:px-6 sm:py-6 mb-4"
+>
+  <div class="flex-auto flex justify-start lg:justify-center">
+    <a href="/" class="no-underline">
+      <Logo
+        class="fill-black/90 dark:fill-white/90 h-[48px] sm:h-[64px] md:h-[88px] w-fit"
+      />
+    </a>
+  </div>
+
+  <div class="flex-initial">
+    <ThemeSwitcher />
+  </div>
+</nav>

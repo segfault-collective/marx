@@ -1,0 +1,62 @@
+---
+import { type GetStaticPaths } from 'astro';
+import { getCollection, render } from 'astro:content';
+
+import Layout from '../../layouts/Layout.astro';
+import { getDisplayDate } from '../../models/post';
+import OutlineButton from '../../components/actions/buttons/OutlineButton.astro';
+
+export const prerender = true;
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const allBlogEntries = await getCollection('blog');
+
+  return allBlogEntries.map((post) => ({
+    params: {
+      slug: post.id,
+    },
+  }));
+};
+
+const { slug } = Astro.params;
+const posts = await getCollection('blog');
+const postEntry = posts.find((p) => p.data.slug === slug);
+
+if (!postEntry) {
+  throw new Error('Blog post not found');
+}
+
+const post = postEntry.data;
+const { Content } = await render(postEntry);
+---
+
+<Layout title={post.title} description={post.description} image={post.image}>
+  <div class="flex flex-auto justify-center">
+    <div
+      class="px-6 flex-auto w-full max-w-3xl overflow-x-auto flex flex-col gap-3"
+    >
+      <div class="flex-initial flex items-center gap-4">
+        <p
+          class="flex-auto text-xs md:text-sm text-left text-black/70 dark:text-white/70"
+        >
+          {getDisplayDate(post)}
+        </p>
+        {
+          post.downloadPath && (
+            <a href={post.downloadPath} download>
+              <OutlineButton
+                size="sm"
+                classes="hidden! sm:flex!"
+                text="Κατέβασε την Εισήγηση"
+                icon="pdf"
+              />
+            </a>
+          )
+        }
+      </div>
+      <div>
+        <Content />
+      </div>
+    </div>
+  </div>
+</Layout>

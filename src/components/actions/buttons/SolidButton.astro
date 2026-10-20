@@ -1,0 +1,35 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  text: string;
+  size?: 'sm' | 'md' | 'lg';
+  icon?: string;
+  classes?: string;
+  type?: 'button' | 'reset' | 'submit';
+  id?: string;
+}
+
+const { text, icon, size = 'md', classes, type = 'button', id } = Astro.props;
+
+const paddingClasses = {
+  sm: 'gap-x-1.5 px-2.5 py-1.5',
+  md: 'gap-x-1.5 px-3 py-2',
+  lg: 'gap-x-2 px-3.5 py-2.5',
+}[size];
+---
+
+<button
+  type={type}
+  class=`inline-flex items-center justify-center bg-rose-600 dark:bg-rose-500 text-sm/6 font-semibold text-white shadow-sm hover:bg-rose-600/80 dark:hover:bg-rose-500/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600 dark:focus-visible:outline-rose-500 cursor-pointer ${paddingClasses} ${classes ?? ''}`
+  id={id}
+>
+  {
+    icon && (
+      <span id={id && `${id}-icon`} class="-ml-0.5 size-6 inline-block">
+        <Icon name={icon} aria-hidden="true" class="w-full h-full" />
+      </span>
+    )
+  }
+  <span id={id && `${id}-text`}>{text}</span>
+</button>

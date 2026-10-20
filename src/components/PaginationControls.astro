@@ -1,0 +1,92 @@
+---
+import { type Page } from 'astro';
+import { Icon } from 'astro-icon/components';
+
+interface Props<T> {
+  page: Page<T>;
+  basePath: string;
+}
+
+const { page, basePath }: Props<unknown> = Astro.props;
+
+const generatePageNumbers = (n: number): number[] =>
+  n <= 0 ? [] : [...generatePageNumbers(n - 1), n];
+
+const pageNumbers = generatePageNumbers(page.lastPage);
+---
+
+<nav
+  class="flex items-center justify-between border-t border-gray-200 px-4 sm:px-0 dark:border-white/10"
+>
+  <div class="-mt-px flex w-0 flex-1">
+    <!-- TODO: Handle this in a cleaner way -->
+    {
+      page.url.prev ? (
+        <a
+          href={page.url.prev}
+          class="inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:border-white/20 dark:hover:text-gray-200"
+        >
+          <Icon
+            name="arrow-long-left"
+            aria-hidden="true"
+            class="mr-3 size-5 text-gray-400 dark:text-gray-500"
+          />
+          Previous
+        </a>
+      ) : (
+        <span class="inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-300 cursor-not-allowed dark:text-gray-600">
+          <Icon
+            name="arrow-long-left"
+            aria-hidden="true"
+            class="mr-3 size-5 text-gray-300 dark:text-gray-600"
+          />
+          Previous
+        </span>
+      )
+    }
+  </div>
+  <div class="hidden md:-mt-px md:flex">
+    {
+      pageNumbers.map((pageNumber) => (
+        <a
+          href={`${basePath}/${pageNumber}`}
+          aria-current={page.currentPage === pageNumber ? 'page' : undefined}
+          class={
+            page.currentPage === pageNumber
+              ? 'inline-flex items-center border-t-2 border-black/85 dark:border-white/85 px-4 pt-4 text-sm font-medium text-black/85 dark:text-white/85'
+              : 'inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:border-white/20 dark:hover:text-gray-200'
+          }
+        >
+          {pageNumber}
+        </a>
+      ))
+    }
+  </div>
+  <div class="-mt-px flex w-0 flex-1 justify-end">
+    <!-- TODO: Handle this in a cleaner way -->
+    {
+      page.url.next ? (
+        <a
+          href={page.url.next}
+          class="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 dark:text-gray-400 dark:hover:border-white/20 dark:hover:text-gray-200"
+        >
+          Next
+          <Icon
+            name="arrow-long-right"
+            aria-hidden="true"
+            class="ml-3 size-5 text-gray-400 dark:text-gray-500"
+          />
+        </a>
+      ) : (
+        <span class="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-300 cursor-not-allowed dark:text-gray-600">
+          Next
+          <Icon
+            name="arrow-long-right"
+            aria-hidden="true"
+            class="ml-3 size-5 text-gray-300 dark:text-gray-600"
+          />
+        </span>
+      )
+    }
+  </div>
+</nav>

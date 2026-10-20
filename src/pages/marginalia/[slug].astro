@@ -1,0 +1,62 @@
+---
+import { type GetStaticPaths } from 'astro';
+import { getCollection, render } from 'astro:content';
+
+import Layout from '../../layouts/Layout.astro';
+import { getDisplayDate } from '../../models/marginalia';
+import OutlineButton from '../../components/actions/buttons/OutlineButton.astro';
+
+export const prerender = true;
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const allMarginaliaEntries = await getCollection('marginalia');
+
+  return allMarginaliaEntries.map((marginalia) => ({
+    params: {
+      slug: marginalia.id,
+    },
+  }));
+};
+
+const { slug } = Astro.params;
+const marginaliaCollection = await getCollection('marginalia');
+const marginaliaEntry = marginaliaCollection.find((m) => m.data.slug === slug);
+
+if (!marginaliaEntry) {
+  throw new Error('Marginalia not found');
+}
+
+const marginalia = marginaliaEntry.data;
+const { Content } = await render(marginaliaEntry);
+---
+
+<Layout title={marginalia.title} description={marginalia.title}>
+  <div class="flex flex-auto justify-center">
+    <div
+      class="px-6 flex-auto w-full max-w-3xl overflow-x-auto flex flex-col gap-3"
+    >
+      <div class="flex-initial flex items-center gap-4">
+        <p
+          class="flex-auto text-xs md:text-sm text-left text-black/70 dark:text-white/70"
+        >
+          {getDisplayDate(marginalia)}
+        </p>
+        {
+          marginalia.downloadPath && (
+            <a href={marginalia.downloadPath} download>
+              <OutlineButton
+                size="sm"
+                classes="hidden! sm:flex!"
+                text="Κατέβασε το Κείμενο"
+                icon="pdf"
+              />
+            </a>
+          )
+        }
+      </div>
+      <div>
+        <Content />
+      </div>
+    </div>
+  </div>
+</Layout>
