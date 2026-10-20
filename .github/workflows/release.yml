@@ -1,0 +1,78 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: 'Version bump for the release'
+        type: choice
+        options: [patch, minor, major]
+        default: patch
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Package dist
+        run: tar -czf marx-dist.tar.gz -C dist .
+
+      - uses: actions/upload-artifact@v7
+        with:
+          path: marx-dist.tar.gz
+          archive: false
+          retention-days: 1
+
+  release:
+    needs: build
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    concurrency:
+      group: release
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      BUMP: ${{ inputs.bump }}
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: marx-dist.tar.gz
+
+      - name: Compute next version
+        id: version
+        run: |
+          latest=$(gh release view --json tagName --jq .tagName 2>/dev/null || true)
+          if [ -z "$latest" ]; then
+            tag=v1.0.0
+          else
+            IFS=. read -r major minor patch <<< "${latest#v}"
+            case "$BUMP" in
+              major) major=$((major + 1)); minor=0; patch=0 ;;
+              minor) minor=$((minor + 1)); patch=0 ;;
+              patch) patch=$((patch + 1)) ;;
+            esac
+            tag="v$major.$minor.$patch"
+          fi
+          echo "Releasing $tag (previous: ${latest:-none})"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - name: Create release
+        run: |
+          gh release create "${{ steps.version.outputs.tag }}" marx-dist.tar.gz \
+            --target "${{ github.sha }}" \
+            --title "${{ steps.version.outputs.tag }}" \
+            --generate-notes
