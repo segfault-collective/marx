@@ -32,61 +32,56 @@ const paragraphClasses = {
     </p>
   </div>
 
-  <a href=`/blog/${post.slug}`
-    ><h3
+  <a href=`/blog/${post.slug}`>
+    <h3
       class={`text-black/90 dark:text-white/90 text-center sm:text-left font-serif font-bold ${postHeadingClasses}`}
     >
       {post.title}
-    </h3></a
-  >
+    </h3>
+  </a>
   <p
     class={`whitespace-pre-line text-black/85 dark:text-white/85 text-black sm:text-justify font-light ${paragraphClasses}`}
   >
     {post.description}
   </p>
-  {
-    post.downloadPath && (
-      <a href={post.downloadPath} download class="mt-2 w-full sm:w-auto">
-        <OutlineButton
-          size="sm"
-          classes="w-full"
-          text="Κατέβασε την Εισήγηση"
-          icon="pdf"
-        />
-      </a>
-    )
-  }
-  {
-    post.marginalia.length > 0 && (
-      <div class="mt-4 self-stretch flex flex-col items-center sm:items-start gap-4">
-        {post.marginalia.map((marginalia) => (
-          <div class="self-stretch flex flex-col items-center sm:items-start">
-            <a href=`/marginalia/${marginalia.slug}`
+  {post.downloadPath && (
+    <a href={post.downloadPath} download class="mt-2 w-full sm:w-auto">
+      <OutlineButton
+        size="sm"
+        classes="w-full"
+        text="Κατέβασε την Εισήγηση"
+        icon="pdf"
+      />
+    </a>
+  )}
+  {post.marginalia.length > 0 && (
+    <div class="mt-4 self-stretch flex flex-col items-center sm:items-start gap-4">
+      {post.marginalia.map((marginalia) => (
+        <div class="self-stretch flex flex-col items-center sm:items-start">
+          <a href=`/marginalia/${marginalia.slug}`>
+            <h4
+              class={`text-black/90 dark:text-white/90 text-center sm:text-left font-serif font-bold ${marginaliaHeading}`}
             >
-              <h4
-                class={`text-black/90 dark:text-white/90 text-center sm:text-left font-serif font-bold ${marginaliaHeading}`}
-              >
-                {marginalia.title}
-              </h4>
+              {marginalia.title}
+            </h4>
+          </a>
+
+          {marginalia.downloadPath && (
+            <a
+              href={marginalia.downloadPath}
+              download
+              class="mt-2 block w-full sm:w-auto"
+            >
+              <OutlineButton
+                size="xs"
+                classes="w-full"
+                text="Κατέβασε το Κείμενο"
+                icon="pdf"
+              />
             </a>
-            
-            {marginalia.downloadPath && (
-              <a
-                href={marginalia.downloadPath}
-                download
-                class="mt-2 block w-full sm:w-auto"
-              >
-                <OutlineButton
-                  size="xs"
-                  classes="w-full"
-                  text="Κατέβασε το Κείμενο"
-                  icon="pdf"
-                />
-              </a>
-            )}
-          </div>
-        ))}
-      </div>
-    )
-  }
+          )}
+        </div>
+      ))}
+    </div>
+  )}
 </div>

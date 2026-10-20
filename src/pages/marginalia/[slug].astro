@@ -32,27 +32,21 @@ const { Content } = await render(marginaliaEntry);
 
 <Layout title={marginalia.title} description={marginalia.title}>
   <div class="flex flex-auto justify-center">
-    <div
-      class="px-6 flex-auto w-full max-w-3xl overflow-x-auto flex flex-col gap-3"
-    >
+    <div class="px-6 flex-auto w-full max-w-3xl overflow-x-auto flex flex-col gap-3">
       <div class="flex-initial flex items-center gap-4">
-        <p
-          class="flex-auto text-xs md:text-sm text-left text-black/70 dark:text-white/70"
-        >
+        <p class="flex-auto text-xs md:text-sm text-left text-black/70 dark:text-white/70">
           {getDisplayDate(marginalia)}
         </p>
-        {
-          marginalia.downloadPath && (
-            <a href={marginalia.downloadPath} download>
-              <OutlineButton
-                size="sm"
-                classes="hidden! sm:flex!"
-                text="Κατέβασε το Κείμενο"
-                icon="pdf"
-              />
-            </a>
-          )
-        }
+        {marginalia.downloadPath && (
+          <a href={marginalia.downloadPath} download>
+            <OutlineButton
+              size="sm"
+              classes="hidden! sm:flex!"
+              text="Κατέβασε το Κείμενο"
+              icon="pdf"
+            />
+          </a>
+        )}
       </div>
       <div>
         <Content />

@@ -20,23 +20,17 @@ posts.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
   title="Υλικό Συναντήσεων - Ομάδα Ανάγνωσης Κεφαλαίου"
   description="Υλικό και συζητήσεις της ομάδας ανάγνωσης του Κεφαλαίου του Marx που στεγάστηκε στη Φάμπρικα Υφανέτ από το 2023 έως το 2025."
 >
-  <div
-    class="flex-auto flex flex-col align-stretch sm:align-start gap-6 md:gap-8 px-6"
-  >
-    <h1
-      class="text-black/90 dark:text-white/90 text-center sm:text-left text-4xl sm:text-5xl md:text-6xl font-serif font-bold"
-    >
+  <div class="flex-auto flex flex-col align-stretch sm:align-start gap-6 md:gap-8 px-6">
+    <h1 class="text-black/90 dark:text-white/90 text-center sm:text-left text-4xl sm:text-5xl md:text-6xl font-serif font-bold">
       Υλικό Συναντήσεων
     </h1>
 
-    {
-      posts.length > 0 && (
-        <div class="flex flex-col gap-16">
-          {posts.map((post) => (
-            <Post post={post} size="normal" />
-          ))}
-        </div>
-      )
-    }
+    {posts.length > 0 && (
+      <div class="flex flex-col gap-16">
+        {posts.map((post) => (
+          <Post post={post} size="normal" />
+        ))}
+      </div>
+    )}
   </div>
 </Layout>

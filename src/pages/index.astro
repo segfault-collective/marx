@@ -27,10 +27,11 @@ const heroParagraphStyles =
       <div class="flex flex-col py-0 gap-6">
         <p class={heroParagraphStyles}>
           Υλικό και συζητήσεις της ομάδας ανάγνωσης του Κεφαλαίου του Marx που
-          στεγάστηκε στη <a
-            class={linkStyles}
-            href="https://yfanet.espivblogs.net">Φάμπρικα Υφανέτ</a
-          > από το 2023 έως το 2025.
+          στεγάστηκε στη{' '}
+          <a class={linkStyles} href="https://yfanet.espivblogs.net">
+            Φάμπρικα Υφανέτ
+          </a>{' '}
+          από το 2023 έως το 2025.
         </p>
       </div>
     </div>
@@ -40,26 +41,20 @@ const heroParagraphStyles =
     <hr class="my-10 sm:my-4 opacity-10 text-black dark:text-white" />
   </div>
 
-  <div
-    class="flex-auto flex flex-col align-stretch sm:align-start gap-6 md:gap-8 px-6"
-  >
+  <div class="flex-auto flex flex-col align-stretch sm:align-start gap-6 md:gap-8 px-6">
     <div class="flex flex-col gap-4">
-      <h1
-        class="text-black/90 dark:text-white/90 text-center sm:text-left text-4xl sm:text-5xl md:text-6xl font-serif font-bold"
-      >
+      <h1 class="text-black/90 dark:text-white/90 text-center sm:text-left text-4xl sm:text-5xl md:text-6xl font-serif font-bold">
         Υλικό Συναντήσεων
       </h1>
     </div>
     <div class="flex flex-col gap-8">
-      {
-        posts.length > 0 && (
-          <div class="flex flex-col gap-8">
-            {posts.map((post) => (
-              <PostComponent post={post} size="normal" />
-            ))}
-          </div>
-        )
-      }
+      {posts.length > 0 && (
+        <div class="flex flex-col gap-8">
+          {posts.map((post) => (
+            <PostComponent post={post} size="normal" />
+          ))}
+        </div>
+      )}
     </div>
   </div>
 </Layout>

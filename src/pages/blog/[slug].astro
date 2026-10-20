@@ -32,27 +32,21 @@ const { Content } = await render(postEntry);
 
 <Layout title={post.title} description={post.description} image={post.image}>
   <div class="flex flex-auto justify-center">
-    <div
-      class="px-6 flex-auto w-full max-w-3xl overflow-x-auto flex flex-col gap-3"
-    >
+    <div class="px-6 flex-auto w-full max-w-3xl overflow-x-auto flex flex-col gap-3">
       <div class="flex-initial flex items-center gap-4">
-        <p
-          class="flex-auto text-xs md:text-sm text-left text-black/70 dark:text-white/70"
-        >
+        <p class="flex-auto text-xs md:text-sm text-left text-black/70 dark:text-white/70">
           {getDisplayDate(post)}
         </p>
-        {
-          post.downloadPath && (
-            <a href={post.downloadPath} download>
-              <OutlineButton
-                size="sm"
-                classes="hidden! sm:flex!"
-                text="Κατέβασε την Εισήγηση"
-                icon="pdf"
-              />
-            </a>
-          )
-        }
+        {post.downloadPath && (
+          <a href={post.downloadPath} download>
+            <OutlineButton
+              size="sm"
+              classes="hidden! sm:flex!"
+              text="Κατέβασε την Εισήγηση"
+              icon="pdf"
+            />
+          </a>
+        )}
       </div>
       <div>
         <Content />
