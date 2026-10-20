@@ -1,11 +1,12 @@
-import { z, reference } from 'astro:content';
+import { reference } from 'astro:content';
+import { z } from 'astro/zod';
 import { type Marginalia } from './marginalia';
 
 export const postSchema = z.object({
   slug: z.string(),
   title: z.string(),
   description: z.string(),
-  image: z.string().url().optional(),
+  image: z.url().optional(),
   createdAt: z.coerce.date(),
   updatedAt: z.coerce.date(),
   publishedAt: z.coerce.date(),

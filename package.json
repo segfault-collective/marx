@@ -9,18 +9,22 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.18",
-    "astro": "^5.16.6",
-    "astro-icon": "^1.1.5",
-    "katex": "^0.16.27",
+    "@astrojs/markdown-remark": "^7.3.3",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.4.1",
+    "astro-icon": "^1.2.0",
+    "katex": "^0.19.0",
     "rehype-class-names": "^2.0.0",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
     "remark-supersub": "^1.0.0",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "prettier": "^3.7.4",
-    "prettier-plugin-astro": "^0.14.1"
+    "prettier": "^3.9.10",
+    "prettier-plugin-astro": "^1.1.1"
+  },
+  "overrides": {
+    "katex": "$katex"
   }
 }
