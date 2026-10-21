@@ -23,6 +23,28 @@ Astro is opinionated in how you add routes, so it's good to familiarize with [fi
 
 Astro [Content Collections](https://docs.astro.build/en/guides/content-collections/) are used for the posts.
 
+### Testing
+
+End-to-end tests use [Playwright](https://playwright.dev/), running against the production build. Download Playwright's Chromium once:
+
+```sh
+npx playwright install chromium
+```
+
+Run the tests:
+
+```sh
+npm run test:e2e
+```
+
+Open the Playwright UI (test timeline, action logs, screenshots):
+
+```sh
+npm run test:e2e:ui
+```
+
+Test files live in `e2e/`. Results (HTML report, failure screenshots, traces) are written to `e2e-results/`.
+
 ## Releases
 
 Releases are created manually with the [Release workflow](.github/workflows/release.yml), either from the Actions tab (Release → Run workflow) or with:
