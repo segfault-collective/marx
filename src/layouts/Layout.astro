@@ -55,6 +55,21 @@ const {
     />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+
+    <!-- Apply theme before first paint to avoid a flash of the light theme -->
+    <script is:inline>
+      {
+        let stored = null;
+        try {
+          stored = localStorage.getItem('theme');
+        } catch {}
+        const systemPrefersDark = window.matchMedia(
+          '(prefers-color-scheme: dark)'
+        ).matches;
+        const isDark = stored === 'dark' || (!stored && systemPrefersDark);
+        document.documentElement.classList.toggle('dark', isDark);
+      }
+    </script>
   </head>
   <body class="bg-[#f9f9f7] dark:bg-neutral-800">
     <MainContainer>
