@@ -59,7 +59,7 @@ export default defineConfig({
             tbody: 'bg-white dark:bg-transparent',
             'tr:nth-child(even)': 'bg-black/5 dark:bg-white/5', // striped rows
             img: 'w-full',
-            hr: 'my-10 text-black/15',
+            hr: 'my-10 text-black/15 dark:text-white/15',
           },
         ],
       ],
