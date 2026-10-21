@@ -19,7 +19,7 @@ These are the basic commands used for development:
 
 Astro is opinionated in how you add routes, so it's good to familiarize with [file-based routing](https://docs.astro.build/en/guides/routing/) if you want to add a new page.
 
-### Content & Digital Garden
+### Content
 
 Astro [Content Collections](https://docs.astro.build/en/guides/content-collections/) are used for the posts.
 
